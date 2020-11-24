@@ -11,17 +11,16 @@ import (
 	"time"
 )
 
-
 // 主要作用是控制应用程序的初始化流程，起到将配置文件内容映射到应用配置结构体中
 func init() {
 	err := setupSetting()
-	if err!=nil {
-		log.Fatalf("init setupSetting err:%v",err)
+	if err != nil {
+		log.Fatalf("init setupSetting err:%v", err)
 
 	}
 	err = setupDBEngine()
 	if err != nil {
-		log.Fatalf("init.setupDBEngine err: %v",err)
+		log.Fatalf("init.setupDBEngine err: %v", err)
 	}
 }
 func main() {
@@ -35,12 +34,11 @@ func main() {
 	//
 	//engine.Run()
 
-
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRouter()
 
 	s := &http.Server{
-		Addr:           ":"+global.ServerSetting.HttpPort,
+		Addr:           ":" + global.ServerSetting.HttpPort,
 		Handler:        router,
 		ReadTimeout:    global.ServerSetting.ReadTimeout,
 		WriteTimeout:   global.ServerSetting.WriteTimeout,
@@ -56,11 +54,11 @@ func main() {
 
 func setupSetting() error {
 	setting, err := setting.NewSetting()
-	if err!=nil {
+	if err != nil {
 		return err
 	}
 	err = setting.ReadSection("Server", &global.ServerSetting)
-	if err!=nil {
+	if err != nil {
 		return err
 	}
 	err = setting.ReadSection("App", &global.AppSetting)
@@ -68,14 +66,14 @@ func setupSetting() error {
 		return err
 	}
 	err = setting.ReadSection("Database", &global.DataBaseSetting)
-	if err!=nil {
+	if err != nil {
 		return err
 	}
 	//log.Println("global.ServerSetting:",global.ServerSetting)
 	//log.Println("global.AppSetting:",global.AppSetting)
 	//log.Println("global.DataBaseSetting:",global.DataBaseSetting)
-	global.ServerSetting.ReadTimeout *=time.Second
-	global.ServerSetting.WriteTimeout *=time.Second
+	global.ServerSetting.ReadTimeout *= time.Second
+	global.ServerSetting.WriteTimeout *= time.Second
 	return nil
 
 }
@@ -83,7 +81,7 @@ func setupSetting() error {
 func setupDBEngine() error {
 	var err error
 	global.DBEngine, err = model.NewDBEngine(global.DataBaseSetting)
-	if err!=nil {
+	if err != nil {
 		return err
 
 	}

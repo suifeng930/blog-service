@@ -9,5 +9,5 @@ var (
 	ServerSetting   *setting.ServerSettingS
 	AppSetting      *setting.AppSettingS
 	DataBaseSetting *setting.DatabaseSettingS
-	DBEngine	*gorm.DB
+	DBEngine        *gorm.DB
 )

@@ -17,7 +17,7 @@ func NewSetting() (*Setting, error) {
 	vp.SetConfigType("yaml")     //指定读取文件格式
 	err := vp.ReadInConfig()
 	if err != nil {
-		log.Println("---->",err)
+		log.Println("---->", err)
 		return nil, err
 
 	}
