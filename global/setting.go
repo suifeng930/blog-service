@@ -1,6 +1,7 @@
 package global
 
 import (
+	"github.com/go-programming-tour-book/blog-service/pkg/logger"
 	"github.com/go-programming-tour-book/blog-service/pkg/setting"
 	"gorm.io/gorm"
 )
@@ -10,4 +11,5 @@ var (
 	AppSetting      *setting.AppSettingS
 	DataBaseSetting *setting.DatabaseSettingS
 	DBEngine        *gorm.DB
+	Logger          *logger.Logger
 )
