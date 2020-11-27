@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	_ "github.com/go-programming-tour-book/blog-service/docs"  //必须添加这个，不然会报错 not yet registered swag
+	_ "github.com/go-programming-tour-book/blog-service/docs" //必须添加这个，不然会报错 not yet registered swag
 	"github.com/go-programming-tour-book/blog-service/internal/middleware"
 	v1 "github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
 	swaggerFiles "github.com/swaggo/files"
