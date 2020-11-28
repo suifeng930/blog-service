@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/go-programming-tour-book/blog-service/pkg/app"
 	"gorm.io/gorm"
+	"log"
 )
 
 type Tag struct {
@@ -71,9 +72,14 @@ func (t Tag)Create(db *gorm.DB)error  {
 
 }
 
-func (t Tag)Update	(db *gorm.DB) error  {
-	db =db.Model(&Tag{}).Where("id=? and is_del=?",t.ID,0)
-	return db.Updates(t).Error
+func (t Tag)Update	(db *gorm.DB,values interface{}) error  {
+	err :=db.Model(&Tag{}).Where("id=? and is_del=?",t.ID,0).Updates(values).Error
+	if err!=nil {
+		log.Println("db.Model(&Tag{}).Where(\"id=? and is_del=?\",t.ID).Updates(values).Error ",err)
+		return err
+
+	}
+	return nil
 
 }
 
