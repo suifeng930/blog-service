@@ -87,3 +87,13 @@ func (t Tag) Delete(db *gorm.DB) error {
 	return db.Where("id=? and is_del=?",t.Model.ID,0).Delete(&t).Error
 
 }
+
+func (t Tag) Get(db *gorm.DB) (Tag, error) {
+	var tag Tag
+	err := db.Where("id = ? AND is_del = ? AND state = ?", t.ID, 0, t.State).First(&tag).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return tag, err
+	}
+
+	return tag, nil
+}
