@@ -37,14 +37,7 @@ func init() {
 // @termsOfService https://github.com/go-programming-tour-book
 func main() {
 
-	//engine := gin.Default()
-	//
-	//engine.GET("/ping", func(context *gin.Context) {
-	//	context.JSON(200,gin.H{"message":"pong"})
-	//
-	//})
-	//
-	//engine.Run()
+
 
 	global.Logger.Infof("%s:  go-programing-tour-book/%s", "xiaoma", "blog-service")
 	gin.SetMode(global.ServerSetting.RunMode)

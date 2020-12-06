@@ -39,3 +39,5 @@
 2020/11/28 17:42:58 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1606556578797896000}
 2020/11/28 17:43:06 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"error","message":"svc.UpdateTag(\u0026param) err: sql: expected 5 arguments, got 4","time":1606556586892324000}
 2020/11/28 17:48:46 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1606556926468753000}
+2020/12/06 16:05:16 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607241916818709000}
+2020/12/06 16:06:13 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607241973831606000}

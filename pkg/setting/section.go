@@ -10,11 +10,15 @@ type ServerSettingS struct {
 }
 
 type AppSettingS struct {
-	DefaultPageSize int
-	MaxPageSize     int
-	LogSavePath     string
-	LogFileName     string
-	LogFileExt      string
+	DefaultPageSize      int
+	MaxPageSize          int
+	LogSavePath          string
+	LogFileName          string
+	LogFileExt           string
+	UploadSavePath       string   //文件的最终保存路径
+	UploadServerUrl      string   // 上传文件后用于展示的文件服务地址
+	UploadImageMaxSize   int      //上传文件所允许的最大空间大小
+	UploadImageAllowExts []string //上传文件所允许的文件后缀
 }
 type DatabaseSettingS struct {
 	DBType       string
