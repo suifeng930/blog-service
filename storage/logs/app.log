@@ -41,3 +41,5 @@
 2020/11/28 17:48:46 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1606556926468753000}
 2020/12/06 16:05:16 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607241916818709000}
 2020/12/06 16:06:13 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607241973831606000}
+2020/12/06 16:24:55 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607243095506480000}
+2020/12/06 16:27:06 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607243226360285000}

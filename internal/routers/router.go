@@ -3,11 +3,13 @@ package routers
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-programming-tour-book/blog-service/docs" //必须添加这个，不然会报错 not yet registered swag
+	"github.com/go-programming-tour-book/blog-service/global"
 	"github.com/go-programming-tour-book/blog-service/internal/middleware"
 	"github.com/go-programming-tour-book/blog-service/internal/routers/api"
 	v1 "github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"net/http"
 )
 
 func NewRouter() *gin.Engine {
@@ -24,6 +26,8 @@ func NewRouter() *gin.Engine {
 	// 文件上传中间件
 	upload :=api.NewUpload()
 	engine.POST("/upload/file",upload.UploadFile)
+	// 静态资源访问配置
+	engine.StaticFS("/static",http.Dir(global.AppSetting.UploadSavePath))
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	apiv1 := engine.Group("/api/v1")
