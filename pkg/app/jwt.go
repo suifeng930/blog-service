@@ -39,12 +39,14 @@ func GenerateToken(appKey, appSecret string) (string, error) {
 
 // 主要功能是解析和校验token，其流程是解析传入的token,然后根据Cliams 的相关属性要求进行校验。
 func ParseToken(token string) (*Claims,error) {
+	// ParseWithClaims 用于解析鉴权的声明，方法内部是具体的解码和校验的过程，返回*token
 	tokenCliams, err := jwt.ParseWithClaims(token, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return GetJWTSecret(), nil
 
 	})
 	if tokenCliams!=nil {
 		claims,ok := tokenCliams.Claims.(*Claims)
+		//Valid 验证基于时间的声明，如过期时间、签发者
 		if ok && tokenCliams.Valid {
 			return claims,nil
 

@@ -28,9 +28,14 @@ func NewRouter() *gin.Engine {
 	engine.POST("/upload/file",upload.UploadFile)
 	// 静态资源访问配置
 	engine.StaticFS("/static",http.Dir(global.AppSetting.UploadSavePath))
+
+	// 鉴权信息 jwt
+	engine.POST("/auth",api.GetAuth)
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	apiv1 := engine.Group("/api/v1")
+	// 将jwt 纳入到 api/v1 中
+	apiv1.Use(middleware.JWT())
 	{
 		//tags
 		apiv1.POST("/tags", tag.Create)
