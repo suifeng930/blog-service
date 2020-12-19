@@ -50,6 +50,7 @@ func AccessLog() gin.HandlerFunc {
 			beginTime,
 			endTime)
 
+
 	}
 
 }
