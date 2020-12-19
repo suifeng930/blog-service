@@ -207,8 +207,8 @@ func (l *Logger) Panic(ctx context.Context, v ...interface{}) {
 	l.WithContext(ctx).WithTrace().Output(LevelPanic, fmt.Sprint(v...))
 }
 
-func (l *Logger) Panicf(ctx context.Context, format string, v ...interface{}) {
-	l.WithContext(ctx).WithTrace().Output(LevelPanic, fmt.Sprintf(format, v...))
+func (l *Logger) Panicf( format string, v ...interface{}) {
+	l.Output(LevelPanic, fmt.Sprintf(format, v...))
 }
 func (l *Logger) Debug(ctx context.Context, v ...interface{}) {
 	l.WithContext(ctx).WithTrace().Output(LevelDebug, fmt.Sprint(v...))

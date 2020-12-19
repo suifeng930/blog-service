@@ -81,6 +81,11 @@ func setupSetting() error {
 		return err
 
 	}
+	err = setting.ReadSection("Email", &global.EmailSetting)
+	if err!=nil {
+		return err
+
+	}
 	//log.Println("global.ServerSetting:",global.ServerSetting)
 	//log.Println("global.AppSetting:",global.AppSetting)
 	//log.Println("global.DataBaseSetting:",global.DataBaseSetting)
