@@ -49,8 +49,6 @@ func AccessLog() gin.HandlerFunc {
 			bodyWriter.Status(),
 			beginTime,
 			endTime)
-
-
 	}
 
 }
