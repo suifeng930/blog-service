@@ -52,3 +52,7 @@
 2020/12/14 11:03:24 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"error","message":"app.BindAndValid error :AppSecret为必填字段AppKey为必填字段","time":1607915004154321000}
 2020/12/14 11:05:50 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"error","message":"app.BindAndValid error :AppKey为必填字段AppSecret为必填字段","time":1607915150702262000}
 2020/12/14 11:20:19 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1607916019133973000}
+2020/12/19 22:46:20 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1608389180829793000}
+2020/12/19 22:47:47 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1608389267848704000}
+2020/12/19 22:50:18 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1608389418364472000}
+2020/12/19 22:53:50 {"callers":["/Users/mahongcheng/go-programming-tour-book/blog-service/main.go : 27 main.init.0"],"level":"info","message":"xiaoma:  go-programing-tour-book/blog-service","time":1608389630062057000}

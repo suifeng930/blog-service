@@ -7,6 +7,7 @@ import (
 	"github.com/go-programming-tour-book/blog-service/pkg/app"
 	"github.com/go-programming-tour-book/blog-service/pkg/email"
 	"github.com/go-programming-tour-book/blog-service/pkg/errcode"
+	"log"
 	"time"
 )
 
@@ -27,6 +28,7 @@ func Recovery()  gin.HandlerFunc {
 				s :="panic recover err: %v"
 				global.Logger.WithCallersFrames().Errorf(s,err)
 
+				log.Println("......")
 				err :=defailtMailer.SendMail(
 					global.EmailSetting.To,
 					fmt.Sprintf("异常抛出， 发生时间： %d",time.Now().Unix()),

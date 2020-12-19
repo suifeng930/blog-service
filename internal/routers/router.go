@@ -7,30 +7,38 @@ import (
 	"github.com/go-programming-tour-book/blog-service/internal/middleware"
 	"github.com/go-programming-tour-book/blog-service/internal/routers/api"
 	v1 "github.com/go-programming-tour-book/blog-service/internal/routers/api/v1"
+	"github.com/go-programming-tour-book/blog-service/pkg/limiter"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
+	"time"
 )
 
 func NewRouter() *gin.Engine {
 
 	engine := gin.New()
 
-	engine.Use(gin.Logger())
-	engine.Use(gin.Recovery())
+	if global.ServerSetting.RunMode == "debug" {
+		engine.Use(gin.Logger())
+		engine.Use(gin.Recovery())
+	} else {
+		engine.Use(middleware.AccessLog())
+		engine.Use(middleware.Recovery())
+	}
+	engine.Use(middleware.RateLimiter(methodLimiters))
+	engine.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
 	// 采用国际化处理
 	engine.Use(middleware.Translations())
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-
 	// 文件上传中间件
-	upload :=api.NewUpload()
-	engine.POST("/upload/file",upload.UploadFile)
+	upload := api.NewUpload()
+	engine.POST("/upload/file", upload.UploadFile)
 	// 静态资源访问配置
-	engine.StaticFS("/static",http.Dir(global.AppSetting.UploadSavePath))
+	engine.StaticFS("/static", http.Dir(global.AppSetting.UploadSavePath))
 
 	// 鉴权信息 jwt
-	engine.POST("/auth",api.GetAuth)
+	engine.POST("/auth", api.GetAuth)
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	apiv1 := engine.Group("/api/v1")
@@ -57,3 +65,11 @@ func NewRouter() *gin.Engine {
 	return engine
 
 }
+
+var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
+	limiter.LimiterBucketRule{
+		Key:          "/auth",
+		FillInterval: time.Second,
+		Capacity:     10,
+		Quantum:      10,
+	})
