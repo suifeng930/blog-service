@@ -159,6 +159,7 @@ func (l *Logger)Output(level Level,message string)  {
 
 }
 
+// 链路追综
 func (l *Logger) WithTrace() *Logger {
 	ginCtx, ok := l.ctx.(*gin.Context)
 	if ok {
@@ -174,8 +175,8 @@ func (l *Logger) Info(ctx context.Context, v ...interface{}) {
 	l.WithContext(ctx).WithTrace().Output(LevelInfo, fmt.Sprint(v...))
 }
 
-func (l *Logger) Infof( format string, v ...interface{}) {
-	l.Output(LevelInfo,fmt.Sprintf(format,v...))
+func (l *Logger) Infof( ctx context.Context,format string, v ...interface{}) {
+	l.WithContext(ctx).WithTrace().Output(LevelInfo,fmt.Sprintf(format,v...))
 
 }
 

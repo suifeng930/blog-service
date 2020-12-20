@@ -44,7 +44,7 @@ func AccessLog() gin.HandlerFunc {
 		}
 		s := "access log: method %s,status_code: %d, begin_time: %d, end_time: %d"
 		//将请求日志信息，持久化到自定义log日志组件中
-		global.Logger.WithFields(fields).Infof(s,
+		global.Logger.WithFields(fields).Infof(c,s,
 			c.Request.Method,
 			bodyWriter.Status(),
 			beginTime,

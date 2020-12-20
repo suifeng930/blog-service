@@ -7,6 +7,7 @@ import (
 	"github.com/go-programming-tour-book/blog-service/internal/routers"
 	"github.com/go-programming-tour-book/blog-service/pkg/logger"
 	"github.com/go-programming-tour-book/blog-service/pkg/setting"
+	"github.com/go-programming-tour-book/blog-service/pkg/tracer"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
@@ -29,6 +30,12 @@ func init() {
 		log.Fatalf("init.setupLogger err: %v", err)
 
 	}
+	// 新增路由监控
+	err = setupTracer()
+	if err != nil {
+
+		log.Fatalf("init.setupTracer err: %v", err)
+	}
 }
 
 // @title   blog -service
@@ -37,9 +44,7 @@ func init() {
 // @termsOfService https://github.com/go-programming-tour-book
 func main() {
 
-
-
-	global.Logger.Infof("%s:  go-programing-tour-book/%s", "xiaoma", "blog-service")
+	//global.Logger.Infof(context.Background(),"%s:  go-programing-tour-book/%s", "xiaoma", "blog-service")
 	gin.SetMode(global.ServerSetting.RunMode)
 	router := routers.NewRouter()
 
@@ -77,12 +82,12 @@ func setupSetting() error {
 	}
 
 	err = setting.ReadSection("JWT", &global.JWTSetting)
-	if err!=nil {
+	if err != nil {
 		return err
 
 	}
 	err = setting.ReadSection("Email", &global.EmailSetting)
-	if err!=nil {
+	if err != nil {
 		return err
 
 	}
@@ -91,7 +96,7 @@ func setupSetting() error {
 	//log.Println("global.DataBaseSetting:",global.DataBaseSetting)
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
-	global.JWTSetting.Expire*=time.Second
+	global.JWTSetting.Expire *= time.Second
 	return nil
 
 }
@@ -115,5 +120,19 @@ func setupLogger() error {
 		MaxAge:    10,
 		LocalTime: true,
 	}, "", log.LstdFlags).WithCaller(2)
+	return nil
+}
+
+func setupTracer() error {
+
+	jaegerTracer, _, err := tracer.NewJaegerTracer(
+		"blog-service",
+		"127.0.0.1:6831")
+	if err != nil {
+		return err
+
+	}
+	//注入到全局变量tracer中，以便于后续在中间件中使用，或定义不同到自定义span 中大点使用
+	global.Tracer = jaegerTracer
 	return nil
 }

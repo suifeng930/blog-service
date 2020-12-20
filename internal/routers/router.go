@@ -18,6 +18,9 @@ func NewRouter() *gin.Engine {
 
 	engine := gin.New()
 
+	// 注册路由
+	engine.Use(middleware.Tracing())
+
 	if global.ServerSetting.RunMode == "debug" {
 		engine.Use(gin.Logger())
 		engine.Use(gin.Recovery())
