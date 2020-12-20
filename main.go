@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"github.com/gin-gonic/gin"
 	"github.com/go-programming-tour-book/blog-service/global"
 	"github.com/go-programming-tour-book/blog-service/internal/model"
@@ -11,11 +12,20 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
+var (
+	port string
+	runMode string
+	config string
+)
+
+
 // 主要作用是控制应用程序的初始化流程，起到将配置文件内容映射到应用配置结构体中
 func init() {
+
 	err := setupSetting()
 	if err != nil {
 		log.Fatalf("init setupSetting err:%v", err)
@@ -35,6 +45,11 @@ func init() {
 	if err != nil {
 
 		log.Fatalf("init.setupTracer err: %v", err)
+	}
+	err = setupFlag()
+	if err != nil {
+		log.Fatalf("init setupFlag() err:%v", err)
+
 	}
 }
 
@@ -64,7 +79,10 @@ func main() {
 }
 
 func setupSetting() error {
-	setting, err := setting.NewSetting()
+
+
+	// 新增 命令行启动参数配置
+	setting, err := setting.NewSetting(strings.Split(config,",")...)
 	if err != nil {
 		return err
 	}
@@ -97,6 +115,14 @@ func setupSetting() error {
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
 	global.JWTSetting.Expire *= time.Second
+
+	if port !=""{
+		global.ServerSetting.HttpPort=port
+	}
+	if runMode !=""{
+		global.ServerSetting.RunMode=runMode
+
+	}
 	return nil
 
 }
@@ -135,4 +161,14 @@ func setupTracer() error {
 	//注入到全局变量tracer中，以便于后续在中间件中使用，或定义不同到自定义span 中大点使用
 	global.Tracer = jaegerTracer
 	return nil
+}
+
+func setupFlag() error {
+
+	flag.StringVar(&port,"port","","启动端口")
+	flag.StringVar(&runMode,"mode","","启动模式 ")
+	flag.StringVar(&config,"config","configs/","指定要使用的配置文件路径")
+	flag.Parse()
+	return nil
+
 }
